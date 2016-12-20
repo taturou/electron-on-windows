@@ -10,7 +10,7 @@ Windows7 Professional Service Pack 1 (64bit)
 
 Node.jsのインストール手順は「[Windows の Node.js 開発環境構築 最小手順 - qiita.com/okamoai/](http://qiita.com/okamoai/items/a875b26abab7f18da7d1)」を参考にやります。
 
-## 1. Git for Windowsのインストール
+## 1. Git for Windows 2.11.0のインストール
 
 [git公式サイト](https://git-scm.com/download/win)より、最新版をDL&インストールします。
 2016-12-20現在「Git-2.11.0-64-bit.exe」でした。
@@ -50,7 +50,7 @@ Node.jsのインストール手順は「[Windows の Node.js 開発環境構築 
 gitをインストール後にコマンドプロンプトが文字化け（日本語が全部豆腐になる）するなら、以下の手順を試して下さい。
 「[Windows Vista のコマンドプロンプトが文字化けしている場合の対処方法 - drk7.jp](http://www.drk7.jp/MT/archives/001461.html)」
 
-## 2. Node.jsのインストール
+## 2. Node.js 6.5.0のインストール
 
 Electron内蔵のNode.jsと同じバージョンをインストールします。
 [Electron公式サイト](http://electron.atom.io/)を見ると以下のバージョンでした。
@@ -64,3 +64,21 @@ Electron内蔵のNode.jsと同じバージョンをインストールします�
 
 インストールウィザードは全てデフォルトを設定しました。
 
+## 3. .NET Framework ~~4.5.1~~ 4.6.1のインストール
+
+「[Windows Vista SP2、Windows 7 SP1、Windows 8、Windows Server 2008 SP2、Windows Server 2008 R2 SP1、および Windows Server 2012 用 Microsoft .NET Framework 4.5.1 (Web インストーラー)](https://www.microsoft.com/ja-JP/download/details.aspx?id=40773)」をインストールします。
+
+と思ったら、既に 4.6.1 がインストール済みでした。
+バージョンが高い分には問題ないかな？
+そのままにします。
+
+## 4. Visual C++ Build Tools 2015のインストール
+
+[Visual C++ Build Tools公式ページ](http://landinghub.visualstudio.com/visual-cpp-build-tools) より、最新版をDL&インストールします。
+
+インストールウィザードは全てデフォルトを設定しました。
+
+## 5. Python 2.7.13のインストール
+
+[pythonの公式ページ](https://www.python.org/downloads/)より、2.7系の最新版をDL&インストールします。
+2016-12-20現在「Python 2.7.13」でした。
