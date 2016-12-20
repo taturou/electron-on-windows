@@ -2,17 +2,20 @@
 
 Windows7でElectronの開発環境を構築するための手順をまとめたものです。
 
+と言っても、ElectronはNode.jsアプリなので、実質的にNode.jsの環境構築手順です。
+
 # 環境
 
 Windows7 Professional Service Pack 1 (64bit)
 
-# 手順
+# インストール手順
 
 Node.jsのインストール手順は「[Windows の Node.js 開発環境構築 最小手順 - qiita.com/okamoai/](http://qiita.com/okamoai/items/a875b26abab7f18da7d1)」を参考にやります。
 
 ## 1. Git for Windows 2.11.0のインストール
 
 [git公式サイト](https://git-scm.com/download/win)より、最新版をDL&インストールします。
+
 2016-12-20現在「Git-2.11.0-64-bit.exe」でした。
 
 インストールウィザードは以下のように設定しました。
@@ -53,6 +56,7 @@ gitをインストール後にコマンドプロンプトが文字化け（日�
 ## 2. Node.js 6.5.0のインストール
 
 Electron内蔵のNode.jsと同じバージョンをインストールします。
+
 [Electron公式サイト](http://electron.atom.io/)を見ると以下のバージョンでした。
 
 * Electron: 1.4.12
@@ -69,6 +73,7 @@ Electron内蔵のNode.jsと同じバージョンをインストールします�
 「[Windows Vista SP2、Windows 7 SP1、Windows 8、Windows Server 2008 SP2、Windows Server 2008 R2 SP1、および Windows Server 2012 用 Microsoft .NET Framework 4.5.1 (Web インストーラー)](https://www.microsoft.com/ja-JP/download/details.aspx?id=40773)」をインストールします。
 
 と思ったら、既に 4.6.1 がインストール済みでした。
+
 バージョンが高い分には問題ないかな？
 そのままにします。
 
@@ -78,7 +83,55 @@ Electron内蔵のNode.jsと同じバージョンをインストールします�
 
 インストールウィザードは全てデフォルトを設定しました。
 
+（超長かった！）
+
 ## 5. Python 2.7.13のインストール
 
 [pythonの公式ページ](https://www.python.org/downloads/)より、2.7系の最新版をDL&インストールします。
+
 2016-12-20現在「Python 2.7.13」でした。
+
+## 6. npm標準オプションの変更
+
+npmにpytonとVisual C++ Build Toolsのバージョンを教えます。
+
+PowerShellで以下を実行してください。
+
+```cmd
+> npm config set python python2.7
+> npm config set msvs_version 2015
+```
+
+設定されたか確認します。
+
+```cmd
+> npm config list
+; cli configs
+user-agent = "npm/3.10.3 node/v6.5.0 win32 x64"
+
+; userconfig C:\Users\h-morishita\.npmrc
+msvs_version = "2015"
+python = "python2.7"
+
+; builtin config undefined
+prefix = "C:\\Users\\h-morishita\\AppData\\Roaming\\npm"
+
+; node bin location = C:\Program Files\nodejs\node.exe
+; cwd = C:\Users\h-morishita
+; HOME = C:\Users\h-morishita
+; "npm config ls -l" to show all defaults.
+```
+
+# ElectronのQuick Startを試してみる
+
+[Electronの公式サイト](http://electron.atom.io/)に、とりあえず試せる手順が書いてあるので、それを実施してみます。
+
+PowerShellで以下を実行してください。
+
+```cmd
+> cd /path/to/work/directory/
+> git clone https://github.com/electron/electron-quick-start
+> cd electron-quick-start
+> npm i
+> npm start
+```
