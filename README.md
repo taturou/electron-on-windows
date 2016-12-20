@@ -135,3 +135,61 @@ PowerShellで以下を実行してください。
 > npm i
 > npm start
 ```
+
+# Visual Studio Codeでデバッグする
+
+## Visual Studio Codeのインストール
+
+[VSCodeの公式ページ](https://code.visualstudio.com/)から最新版をDL＆インストール。
+
+2016-12-20現在「VSCodeSetup-1.8.1.exe」でした。
+
+### プラグインのインストール
+
+VSCodeに、以下のプラグインをインストールします。
+
+* npm - npm commands for VSCode
+
+## フォルダーを開く
+
+VSCodeで、先ほどの`electron-quick-start`フォルダを開きます。
+
+## デバッグの設定
+
+VSCodeでElectronアプリケーションをデバッグできるように設定します。
+
+1. 「デバッグ」ボタンを押しデバッグの設定画面を開きます。
+2. 「歯車」ボタンを押して`launch.json`を作成します。
+3. 以下のとおりに修正してください。
+   `runtimeExecutable`と`console`がポイントです。
+   
+    ```json
+    {
+      "version": "0.2.0",
+      "configurations": [
+        {
+          "type": "node",
+          "request": "launch",
+          "name": "プログラムの起動",
+          "program": "${workspaceRoot}\\main.js",
+          "cwd": "${workspaceRoot}",
+          "runtimeExecutable": "${workspaceRoot}\\node_modules\\.bin\\electron",
+          "runtimeArgs": [
+            "--enable-logging"
+          ],
+          "args": [
+            "."
+          ],
+          "console": "integratedTerminal"
+        },
+        {
+          "type": "node",
+          "request": "attach",
+          "name": "プロセスに添付",
+          "port": 5858
+        }
+      ]
+    }
+    ```
+    
+4. 「デバッグの開始」ボタンでElectronアプリケーションが起動します。
