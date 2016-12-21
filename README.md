@@ -4,9 +4,13 @@ Windows7でElectronの開発環境を構築するための手順をまとめた�
 
 と言っても、ElectronはNode.jsアプリなので、実質的にNode.jsの環境構築手順です。
 
+---
+
 # 環境
 
 Windows7 Professional Service Pack 1 (64bit)
+
+---
 
 # インストール手順
 
@@ -141,7 +145,7 @@ prefix = "C:\\Users\\h-morishita\\AppData\\Roaming\\npm"
 ちなみに、これを試したときのバージョンは以下の通りです。
 
 ```cmd
-> $psversiontable
+PS> $psversiontable
 
 Name                           Value
 ----                           -----
@@ -171,8 +175,9 @@ PowerShellの起動時にPATHを変更すればOK。
 
 以下を実施します。
 
-1. PowerShellで `> $profile` を実行し、初期化スクリプトのパスを得る。
+1. PowerShellで `PS> $profile` を実行し、初期化スクリプトのパスを得る。
 2. 初期化スクリプトに以下を記載する。
+
    ```cmd
    # Path to MSYS commands of Git for Windows
    $env:path += ';C:\Program Files\Git\mingw64\bin'
@@ -210,21 +215,37 @@ PowerShellはemacsキーバインドが使えない（マジか！）ので、PS
     }
     ```
 
+---
+
 # ElectronのQuick Startを試してみる
+
+準備が長すぎて目的を忘れそうになりましたが、このドキュメントはElectronの環境構築でしたね。
+
+やっと環境構築が終わったので、実際に動くか試してみます。
 
 [Electronの公式サイト](http://electron.atom.io/)に、とりあえず試せる手順が書いてあるので、それを実施してみます。
 
 PowerShellで以下を実行してください。
 
 ```cmd
-> cd /path/to/work/directory/
-> git clone https://github.com/electron/electron-quick-start
-> cd electron-quick-start
-> npm i
-> npm start
+PS> cd /path/to/work/directory/
+PS> git clone https://github.com/electron/electron-quick-start
+PS> cd electron-quick-start
+PS> npm i
+PS> npm start
 ```
 
+ウィンドウがひとつ開き、「Hello World」が表示されれば成功です。
+
+---
+
 # Visual Studio Codeでデバッグする
+
+ElectronのGUIはChroniumなので、Chromeの「デベロッパーツール」でデバッグできます。
+しかし、エディタでコード書いてブレイクポイント貼って実行してデバッグできたほうが楽ですよね。
+デベロッパーツールだと、ウィンドウが出た後しかデバッグできないし。
+
+そこで、Microsoft社製「Visual Studio Code（VSCode）」でデバッグできるようにします。
 
 ## Visual Studio Codeのインストール
 
