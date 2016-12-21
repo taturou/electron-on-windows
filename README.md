@@ -136,6 +136,24 @@ prefix = "C:\\Users\\h-morishita\\AppData\\Roaming\\npm"
 
 「インストーラーはエラーを検出しました: 0xc80003f3」エラーがでてインストールできず。
 
+あとでPSReadLineを導入するときに`Import-Module PSReadLine`を使いたいので5.0にしたかったのですが、手動でもインストールできるので4.0でもOKです。
+
+ちなみに、これを試したときのバージョンは以下の通りです。
+
+```cmd
+> $psversiontable
+
+Name                           Value
+----                           -----
+PSVersion                      4.0
+WSManStackVersion              3.0
+SerializationVersion           1.1.0.1
+CLRVersion                     4.0.30319.42000
+BuildVersion                   6.3.9600.16406
+PSCompatibleVersions           {1.0, 2.0, 3.0, 4.0}
+PSRemotingProtocolVersion      2.2
+```
+
 ## PowerShellでUNIXツールを使えるようにする
 
 PowerShellで`grep`、`sed`、`awk`などを使えるようにします。
