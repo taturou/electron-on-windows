@@ -144,13 +144,53 @@ PowerShellで以下を実行してください。
 
 2016-12-20現在「VSCodeSetup-1.8.1.exe」でした。
 
-### プラグインのインストール
+## プラグインのインストール
 
 VSCodeに、以下のプラグインをインストールします。
 
 * npm - npm commands for VSCode
 
-## フォルダーを開く
+（Ctrl+Shift+pからnpmが叩けるのは良いんだけど、npmを知らない人向けにコマンドがラッパーされてて素のコマンドが通らないので使いづらい…）
+
+## 統合シェルをPowerShellに変更する
+
+本当はbashを使いたいけど、MSYSもCygwinも重いのでしょうがなくPowerShellを使います。
+CMDよりは随分マシなので。
+
+「[Visual Studio CodeのターミナルをPowerShellに変える際に注意すべきこと - 素敵なおひげですね](http://stknohg.hatenablog.jp/entry/2016/06/10/180732)」を参考に以下を設定します。
+
+VSCodeの「ファイル」メニュー→「基本設定」→「ユーザ設定」で、settings.jsonを開いて、以下を追加します。
+
+```json
+"terminal.integrated.shell.windows": "C:\\Windows\\Sysnative\\WindowsPowerShell\\v1.0\\powershell.exe"
+```
+
+## PowerShellでUNIXツールを使えるようにする
+
+PowerShellで`grep`、`sed`、`awk`などを使えるようにします。
+
+Git for Windowsの中にMinGW/MSYS2が入っているので、それを使います。
+詳細は「[Mingw-w64/MSYS2 を入れなくても Git for Windows で間に合うみたい - 檜山正幸のキマイラ飼育記](http://d.hatena.ne.jp/m-hiyama/20151013/1444704189)」を参照。
+
+ただ、環境変数PATHにパスを通すとMSYS1を使っている他のビルド環境と競合するので、PowerShellを使った時だけパスを通すようにします。
+PowerShellの起動時にPATHを変更すればOK。
+
+やり方は以下の記事を参照。
+
+* [PowerShell/PowerShellで環境変数PATHにパスを追加する方法 ](http://win.just4fun.biz/PowerShell/PowerShell%E3%81%A7%E7%92%B0%E5%A2%83%E5%A4%89%E6%95%B0PATH%E3%81%AB%E3%83%91%E3%82%B9%E3%82%92%E8%BF%BD%E5%8A%A0%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95.html)
+* [PowerShell/PowerShellコンソール起動時にスクリプトを実行する方法 ](http://win.just4fun.biz/PowerShell/PowerShell%E3%82%B3%E3%83%B3%E3%82%BD%E3%83%BC%E3%83%AB%E8%B5%B7%E5%8B%95%E6%99%82%E3%81%AB%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88%E3%82%92%E5%AE%9F%E8%A1%8C%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95.html)
+
+以下を実施します。
+
+1. PowerShellで `> $profile` を実行し、初期化スクリプトのパスを得る
+2. 初期化スクリプトに以下を記載する
+   ```cmd
+   # Path to MSYS commands of Git for Windows
+   $env:path += ';C:\Program Files\Git\mingw64\bin'
+   $env:path += ';C:\Program Files\Git\usr\bin'
+   ```
+
+## プロジェクトフォルダーを開く
 
 VSCodeで、先ほどの`electron-quick-start`フォルダを開きます。
 
@@ -158,7 +198,7 @@ VSCodeで、先ほどの`electron-quick-start`フォルダを開きます。
 
 VSCodeでElectronアプリケーションをデバッグできるように設定します。
 
-1. 「デバッグ」ボタンを押しデバッグの設定画面を開きます。
+1. `Ctrl+Shift+D`でデバッグ画面を開きます。
 2. 「歯車」ボタンを押して`launch.json`を作成します。
 3. 以下のとおりに修正してください。
    `runtimeExecutable`と`console`がポイントです。
@@ -191,5 +231,7 @@ VSCodeでElectronアプリケーションをデバッグできるように設定
       ]
     }
     ```
-    
-4. 「デバッグの開始」ボタンでElectronアプリケーションが起動します。
+## デバッグ
+ 
+1. `Ctrl+Shift+D` でデバッグ画面を開きます。
+2. 「デバッグの開始」ボタンでElectronアプリケーションが起動します。
