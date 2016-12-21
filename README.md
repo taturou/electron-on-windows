@@ -124,15 +124,15 @@ prefix = "C:\\Users\\h-morishita\\AppData\\Roaming\\npm"
 
 ## PowerShell 5.0のインストール
 
-~~あとでVSCodeによるデバッグ環境を整えるときに、シェルとしてPowerShellを使用します。
-~~Windows7にはPowerShellがデフォルトでインストール済みですが、最新版ではない可能性があるので最新版をインストールします。
+~~あとでVSCodeによるデバッグ環境を整えるときに、シェルとしてPowerShellを使用します。~~
+~~Windows7にはPowerShellがデフォルトでインストール済みですが、最新版ではない可能性があるので最新版をインストールします。~~
 
-~~1. https://msdn.microsoft.com/en-us/powershell/ へアクセス
-~~2. 「Download WMF」から最新版のダウンロードページへ飛ぶ
-~~    * 2016-12-21時点では「Download WMF 5.0」が最新でした
-~~3. 「Windows Management Framework 5.0」ページで [Download] ボタンをクリックする
-~~4. 「Win7AndW2K8R2-KB3134760-x64.msu」をチェックして [Next] ボタンをクリックする
-~~5. Win7AndW2K8R2-KB3134760-x64.msuを実行する
+1. ~~https://msdn.microsoft.com/en-us/powershell/ へアクセス~~
+2. ~~「Download WMF」から最新版のダウンロードページへ飛ぶ~~
+    * ~~2016-12-21時点では「Download WMF 5.0」が最新でした~~
+3. ~~「Windows Management Framework 5.0」ページで [Download] ボタンをクリックする~~
+4. ~~「Win7AndW2K8R2-KB3134760-x64.msu」をチェックして [Next] ボタンをクリックする~~
+5. ~~Win7AndW2K8R2-KB3134760-x64.msuを実行する~~
 
 「インストーラーはエラーを検出しました: 0xc80003f3」エラーがでてインストールできず。
 
