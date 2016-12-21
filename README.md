@@ -153,13 +153,44 @@ PowerShellの起動時にPATHを変更すればOK。
 
 以下を実施します。
 
-1. PowerShellで `> $profile` を実行し、初期化スクリプトのパスを得る
-2. 初期化スクリプトに以下を記載する
+1. PowerShellで `> $profile` を実行し、初期化スクリプトのパスを得る。
+2. 初期化スクリプトに以下を記載する。
    ```cmd
    # Path to MSYS commands of Git for Windows
    $env:path += ';C:\Program Files\Git\mingw64\bin'
    $env:path += ';C:\Program Files\Git\usr\bin'
    ```
+
+## PowerShellでemacsキーバインドを使えるようにする
+
+PowerShellはemacsキーバインドが使えない（マジか！）ので、PSReadLineを導入する。
+
+1. 「[github/lzybkr/PSReadline](https://github.com/lzybkr/PSReadLine)」から最新版をダウンロード。
+
+    * 2016-12-21時点では[v1.2](https://github.com/lzybkr/PSReadLine/releases/download/v1.2/PSReadline.zip)でした。
+
+2. zipを解答したものを以下にコピーする。
+
+    * C:\Users\[User]\Documents\WindowsPowerShell\modules\PSReadline
+
+3. 初期化スクリプトに以下を記載する。
+
+    ```cmd
+    # for PSReadLine
+    if ($host.Name -eq 'ConsoleHost')
+    {
+        Import-Module PSReadline
+
+        # emacsキーバインド
+        Set-PSReadlineOption -EditMode Emacs
+
+        # ベルを表示しない
+        Set-PSReadlineOption -BellStyle None
+
+        # 同じコマンドはhistoryに記録しない
+        Set-PSReadlineOption -HistoryNoDuplicates
+    }
+    ```
 
 # ElectronのQuick Startを試してみる
 
@@ -189,7 +220,7 @@ VSCodeに、以下のプラグインをインストールします。
 
 * npm - npm commands for VSCode
 
-（Ctrl+Shift+pからnpmが叩けるのは良いんだけど、npmを知らない人向けにコマンドがラッパーされてて素のコマンドが通らないので使いづらい…）
+（`Ctrl+Shift+p`からnpmが叩けるのは良いんだけど、npmを知らない人向けにコマンドがラッパーされてて素のコマンドが通らないので使いづらい…）
 
 ## 統合シェルをPowerShellに変更する
 
@@ -203,6 +234,26 @@ VSCodeの「ファイル」メニュー→「基本設定」→「ユーザ設�
 ```json
 "terminal.integrated.shell.windows": "C:\\Windows\\Sysnative\\WindowsPowerShell\\v1.0\\powershell.exe"
 ```
+## PowerShellでemacsのキーバインドを使えるようにする
+
+なんだかデジャヴ。
+
+さっきやったきがしますが、VSCodeからPowerShellを使うときにはもう一段階の設定が必要です。
+PowerShellのキーバインドは変更されていても、VSCodeのキーバインドが競合するためです。
+具体的には`Ctrl+p`、`Ctrl+n`、`Ctrl+k`などが別の機能に割り当てられており、それがPowerShellに渡りません。
+
+以下の手順を実施します。
+
+1. 「ファイル」メニュー→「基本設定」→「キーボードショートカット」で`keybindings.json`を開く。
+2. `keybindings.json`に以下を追記する。
+
+    ```json
+    // ターミナルでemacsキーバインドと競合するのを解消する
+    { "key": "ctrl+k", "command":"", "when": "terminalFocus"},
+    { "key": "ctrl+p", "command":"", "when": "terminalFocus"},
+    { "key": "ctrl+n", "command":"", "when": "terminalFocus"},
+    { "key": "ctrl+e", "command":"", "when": "terminalFocus"}
+    ```
 
 ## プロジェクトフォルダーを開く
 
@@ -245,6 +296,7 @@ VSCodeでElectronアプリケーションをデバッグできるように設定
       ]
     }
     ```
+
 ## デバッグ
  
 1. `Ctrl+Shift+D` でデバッグ画面を開きます。
