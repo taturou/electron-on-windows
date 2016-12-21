@@ -122,6 +122,45 @@ prefix = "C:\\Users\\h-morishita\\AppData\\Roaming\\npm"
 ; "npm config ls -l" to show all defaults.
 ```
 
+## PowerShell 5.0のインストール
+
+~~あとでVSCodeによるデバッグ環境を整えるときに、シェルとしてPowerShellを使用します。
+~~Windows7にはPowerShellがデフォルトでインストール済みですが、最新版ではない可能性があるので最新版をインストールします。
+
+~~1. https://msdn.microsoft.com/en-us/powershell/ へアクセス
+~~2. 「Download WMF」から最新版のダウンロードページへ飛ぶ
+~~    * 2016-12-21時点では「Download WMF 5.0」が最新でした
+~~3. 「Windows Management Framework 5.0」ページで [Download] ボタンをクリックする
+~~4. 「Win7AndW2K8R2-KB3134760-x64.msu」をチェックして [Next] ボタンをクリックする
+~~5. Win7AndW2K8R2-KB3134760-x64.msuを実行する
+
+「インストーラーはエラーを検出しました: 0xc80003f3」エラーがでてインストールできず。
+
+## PowerShellでUNIXツールを使えるようにする
+
+PowerShellで`grep`、`sed`、`awk`などを使えるようにします。
+
+Git for Windowsの中にMinGW/MSYS2が入っているので、それを使います。
+詳細は「[Mingw-w64/MSYS2 を入れなくても Git for Windows で間に合うみたい - 檜山正幸のキマイラ飼育記](http://d.hatena.ne.jp/m-hiyama/20151013/1444704189)」を参照。
+
+ただ、環境変数PATHにパスを通すとMSYS1を使っている他のビルド環境と競合するので、PowerShellを使った時だけパスを通すようにします。
+PowerShellの起動時にPATHを変更すればOK。
+
+やり方は以下の記事を参照。
+
+* [PowerShell/PowerShellで環境変数PATHにパスを追加する方法 ](http://win.just4fun.biz/PowerShell/PowerShell%E3%81%A7%E7%92%B0%E5%A2%83%E5%A4%89%E6%95%B0PATH%E3%81%AB%E3%83%91%E3%82%B9%E3%82%92%E8%BF%BD%E5%8A%A0%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95.html)
+* [PowerShell/PowerShellコンソール起動時にスクリプトを実行する方法 ](http://win.just4fun.biz/PowerShell/PowerShell%E3%82%B3%E3%83%B3%E3%82%BD%E3%83%BC%E3%83%AB%E8%B5%B7%E5%8B%95%E6%99%82%E3%81%AB%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88%E3%82%92%E5%AE%9F%E8%A1%8C%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95.html)
+
+以下を実施します。
+
+1. PowerShellで `> $profile` を実行し、初期化スクリプトのパスを得る
+2. 初期化スクリプトに以下を記載する
+   ```cmd
+   # Path to MSYS commands of Git for Windows
+   $env:path += ';C:\Program Files\Git\mingw64\bin'
+   $env:path += ';C:\Program Files\Git\usr\bin'
+   ```
+
 # ElectronのQuick Startを試してみる
 
 [Electronの公式サイト](http://electron.atom.io/)に、とりあえず試せる手順が書いてあるので、それを実施してみます。
@@ -164,31 +203,6 @@ VSCodeの「ファイル」メニュー→「基本設定」→「ユーザ設�
 ```json
 "terminal.integrated.shell.windows": "C:\\Windows\\Sysnative\\WindowsPowerShell\\v1.0\\powershell.exe"
 ```
-
-## PowerShellでUNIXツールを使えるようにする
-
-PowerShellで`grep`、`sed`、`awk`などを使えるようにします。
-
-Git for Windowsの中にMinGW/MSYS2が入っているので、それを使います。
-詳細は「[Mingw-w64/MSYS2 を入れなくても Git for Windows で間に合うみたい - 檜山正幸のキマイラ飼育記](http://d.hatena.ne.jp/m-hiyama/20151013/1444704189)」を参照。
-
-ただ、環境変数PATHにパスを通すとMSYS1を使っている他のビルド環境と競合するので、PowerShellを使った時だけパスを通すようにします。
-PowerShellの起動時にPATHを変更すればOK。
-
-やり方は以下の記事を参照。
-
-* [PowerShell/PowerShellで環境変数PATHにパスを追加する方法 ](http://win.just4fun.biz/PowerShell/PowerShell%E3%81%A7%E7%92%B0%E5%A2%83%E5%A4%89%E6%95%B0PATH%E3%81%AB%E3%83%91%E3%82%B9%E3%82%92%E8%BF%BD%E5%8A%A0%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95.html)
-* [PowerShell/PowerShellコンソール起動時にスクリプトを実行する方法 ](http://win.just4fun.biz/PowerShell/PowerShell%E3%82%B3%E3%83%B3%E3%82%BD%E3%83%BC%E3%83%AB%E8%B5%B7%E5%8B%95%E6%99%82%E3%81%AB%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88%E3%82%92%E5%AE%9F%E8%A1%8C%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95.html)
-
-以下を実施します。
-
-1. PowerShellで `> $profile` を実行し、初期化スクリプトのパスを得る
-2. 初期化スクリプトに以下を記載する
-   ```cmd
-   # Path to MSYS commands of Git for Windows
-   $env:path += ';C:\Program Files\Git\mingw64\bin'
-   $env:path += ';C:\Program Files\Git\usr\bin'
-   ```
 
 ## プロジェクトフォルダーを開く
 
