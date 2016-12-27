@@ -215,6 +215,27 @@ PowerShellはemacsキーバインドが使えない（マジか！）ので、PS
     }
     ```
 
+## PowerShellでgitが文字化けしないようにする
+
+PowerShellのデフォルト文字コードはShift－JIS(CP932)です。
+しかし、gitのコミットログはUTF-8で書きますよね（もちろんですよね）。
+そうすると、`git log` したときに文字化けします。
+PowerShellの文字コードをUnicode(CP65001)にしたいところですが、そうすると他のWindowsのツールたちが動かなかったりします（いい加減、SJISやめれや）。
+そのため、コミットログだけUTF-8を使えるようにしましょう。
+
+以下を実施します。
+
+1. [lv for Windows](http://www.kazmix.com/lv4win/)(*1)をDL&解凍する。
+2. `git`の`core.pager`設定を変更する。
+
+    ```cmd
+    PS> git config --global core.pager "path/to/lv/lv.exe -Iu -Os -c"
+    ```
+
+これで `PS>git log` しても文字化けしません。
+
+(*1)これが何者かは分かりませんが、バイナリで提供されていたので使わせてもらいます。
+
 ---
 
 # ElectronのQuick Startを試してみる
